@@ -1,0 +1,13 @@
+{
+    "name": "samuelbednarcik/elastic-apm-php-agent",
+    "description": "PHP Agent for Elastic APM",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samuel Bednarcik",
+            "email": "bednarciks@gmail.com"
+        }
+    ],
+    "require": {}
+}
