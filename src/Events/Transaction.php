@@ -63,6 +63,11 @@ class Transaction
     protected $marks;
 
     /**
+     * @var int|null
+     */
+    protected $timestamp;
+
+    /**
      * @return array|null
      */
     public function getContext(): ?array
@@ -237,4 +242,21 @@ class Transaction
     {
         $this->marks = $marks;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getTimestamp(): ?int
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @param int|null $timestamp
+     */
+    public function setTimestamp(?int $timestamp): void
+    {
+        $this->timestamp = $timestamp;
+    }
+
 }
