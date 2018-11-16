@@ -4,7 +4,7 @@ namespace SamuelBednarcik\ElasticAPMAgent;
 
 use SamuelBednarcik\ElasticAPMAgent\Exception\InvalidTraceContextHeaderException;
 
-class TraceContext
+class TraceParent
 {
     /**
      * @var string
@@ -40,7 +40,7 @@ class TraceContext
 
     /**
      * @param string $header
-     * @return TraceContext
+     * @return TraceParent
      * @throws InvalidTraceContextHeaderException
      */
     public static function createFromHeader(string $header)
@@ -50,6 +50,6 @@ class TraceContext
         }
 
         $parsed = explode('-', $header);
-        return new TraceContext($parsed[1], $parsed[2], $parsed[3]);
+        return new TraceParent($parsed[1], $parsed[2], $parsed[3]);
     }
 }
