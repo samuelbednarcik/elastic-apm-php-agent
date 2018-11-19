@@ -123,19 +123,19 @@ class Span
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getStart(): ?int
+    public function getTimestamp(): ?float
     {
-        return $this->start;
+        return $this->timestamp;
     }
 
     /**
-     * @param int|null $start
+     * @param float|null $timestamp
      */
-    public function setStart(?int $start): void
+    public function setTimestamp(?float $timestamp): void
     {
-        $this->start = $start;
+        $this->timestamp = $timestamp;
     }
 
     /**
