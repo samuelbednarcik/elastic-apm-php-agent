@@ -40,6 +40,8 @@ class TransactionBuilder
         } else {
             $transaction->setTraceId(self::generateRandomBitsInHex(self::TRACE_ID_SIZE));
         }
+
+        return $transaction;
     }
 
     /**

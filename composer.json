@@ -1,5 +1,5 @@
 {
-    "name": "samuelbednarcik/elastic-apm-php-agent",
+    "name": "samuelbednarcik/elastic-apm-agent",
     "description": "PHP Agent for Elastic APM",
     "type": "library",
     "license": "MIT",
@@ -9,10 +9,14 @@
             "email": "bednarciks@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/http-foundation": "^4.1"
+    },
     "autoload": {
         "psr-4": {
-            "SamuelBednarcik\\": "src/"
+            "SamuelBednarcik\\ElasticAPMAgent\\": "src/"
         }
     }
 }
