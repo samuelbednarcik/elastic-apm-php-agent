@@ -2,10 +2,12 @@
 
 namespace SamuelBednarcik\ElasticAPMAgent;
 
+use SamuelBednarcik\ElasticAPMAgent\Events\Metadata;
+
 class AgentConfiguration
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $serviceName;
 
@@ -15,28 +17,27 @@ class AgentConfiguration
     private $secretToken;
 
     /**
-     * @var string
+     * @var Metadata|null
+     */
+    private $metadata;
+
+    /**
+     * @var string|null
      */
     private $serverUrl;
 
-    public function __construct(string $serviceName, string $serverUrl)
-    {
-        $this->serviceName = $serviceName;
-        $this->serverUrl = $serverUrl;
-    }
-
     /**
-     * @return string
+     * @return null|string
      */
-    public function getServiceName(): string
+    public function getServiceName(): ?string
     {
         return $this->serviceName;
     }
 
     /**
-     * @param string $serviceName
+     * @param null|string $serviceName
      */
-    public function setServiceName(string $serviceName): void
+    public function setServiceName(?string $serviceName): void
     {
         $this->serviceName = $serviceName;
     }
@@ -58,18 +59,35 @@ class AgentConfiguration
     }
 
     /**
-     * @return string
+     * @return null|Metadata
      */
-    public function getServerUrl(): string
+    public function getMetadata(): ?Metadata
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * @param null|Metadata $metadata
+     */
+    public function setMetadata(?Metadata $metadata): void
+    {
+        $this->metadata = $metadata;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getServerUrl(): ?string
     {
         return $this->serverUrl;
     }
 
     /**
-     * @param string $serverUrl
+     * @param null|string $serverUrl
      */
-    public function setServerUrl(string $serverUrl): void
+    public function setServerUrl(?string $serverUrl): void
     {
         $this->serverUrl = $serverUrl;
     }
 }
+
