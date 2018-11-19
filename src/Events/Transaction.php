@@ -13,7 +13,7 @@ class Transaction
     protected $context;
 
     /**
-     * @var int|null
+     * @var float|null
      */
     protected $duration;
 
@@ -63,7 +63,7 @@ class Transaction
     protected $marks;
 
     /**
-     * @var int|null
+     * @var float|null
      */
     protected $timestamp;
 
@@ -84,17 +84,17 @@ class Transaction
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getDuration(): ?int
+    public function getDuration(): ?float
     {
         return $this->duration;
     }
 
     /**
-     * @param int|null $duration
+     * @param float|null $duration
      */
-    public function setDuration(?int $duration): void
+    public function setDuration(?float $duration): void
     {
         $this->duration = $duration;
     }
@@ -244,17 +244,17 @@ class Transaction
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getTimestamp(): ?int
+    public function getTimestamp(): ?float
     {
         return $this->timestamp;
     }
 
     /**
-     * @param int|null $timestamp
+     * @param float|null $timestamp
      */
-    public function setTimestamp(?int $timestamp): void
+    public function setTimestamp(?float $timestamp): void
     {
         $this->timestamp = $timestamp;
     }
