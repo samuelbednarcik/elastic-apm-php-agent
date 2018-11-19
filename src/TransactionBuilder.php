@@ -7,7 +7,7 @@ use SamuelBednarcik\ElasticAPMAgent\Exception\InvalidTraceContextHeaderException
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TransactionBuilder
+class TransactionBuilder extends AbstractEventBuilder
 {
     const TRANSACTION_ID_SIZE = 64;
     const TRACE_ID_SIZE = 128;
@@ -67,15 +67,5 @@ class TransactionBuilder
     public static function calculateDuration(float $now, float $transactionTimestamp): float
     {
         return round(($now - $transactionTimestamp) / 1000, 3);
-    }
-
-    /**
-     * @param int $bits
-     * @return string
-     * @throws \Exception
-     */
-    public static function generateRandomBitsInHex(int $bits): string
-    {
-        return bin2hex(random_bytes($bits/8));
     }
 }
