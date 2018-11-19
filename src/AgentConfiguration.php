@@ -27,6 +27,11 @@ class AgentConfiguration
     private $serverUrl;
 
     /**
+     * @var CollectorInterface[]
+     */
+    private $collectors;
+
+    /**
      * @return null|string
      */
     public function getServiceName(): ?string
@@ -89,5 +94,20 @@ class AgentConfiguration
     {
         $this->serverUrl = $serverUrl;
     }
-}
 
+    /**
+     * @return CollectorInterface[]
+     */
+    public function getCollectors(): array
+    {
+        return $this->collectors;
+    }
+
+    /**
+     * @param CollectorInterface[] $collectors
+     */
+    public function setCollectors(array $collectors): void
+    {
+        $this->collectors = $collectors;
+    }
+}
