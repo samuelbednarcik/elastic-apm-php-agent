@@ -29,10 +29,10 @@ class Span
     protected $parentId;
 
     /**
-     * Span's timestamp
-     * @var float|null
+     * Offset relative to the transaction's timestamp identifying the start of the span, in milliseconds
+     * @var int|null
      */
-    protected $timestamp;
+    protected $start;
 
     /**
      * Duration of the span in milliseconds
@@ -123,19 +123,19 @@ class Span
     }
 
     /**
-     * @return float|null
+     * @return int|null
      */
-    public function getTimestamp(): ?float
+    public function getStart(): ?int
     {
-        return $this->timestamp;
+        return $this->start;
     }
 
     /**
-     * @param float|null $timestamp
+     * @param int|null $start
      */
-    public function setTimestamp(?float $timestamp): void
+    public function setTimestamp(?int $start): void
     {
-        $this->timestamp = $timestamp;
+        $this->start = $start;
     }
 
     /**
