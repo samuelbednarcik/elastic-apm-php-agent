@@ -5,6 +5,7 @@ namespace SamuelBednarcik\ElasticAPMAgent;
 use SamuelBednarcik\ElasticAPMAgent\Events\Transaction;
 use SamuelBednarcik\ElasticAPMAgent\Exception\InvalidTraceContextHeaderException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TransactionBuilder
 {
@@ -45,6 +46,20 @@ class TransactionBuilder
     }
 
     /**
+     * @param Response $response
+     * @return string
+     */
+    public static function getResultStringFromResponse(Response $response): string
+    {
+        return sprintf(
+            'HTTP/%s %s %s',
+            $response->getProtocolVersion(),
+            $response->getStatusCode(),
+            Response::$statusTexts[$response->getStatusCode()]
+        );
+    }
+
+    /**
      * @param float Current unix timestamp in microseconds
      * @param float $transactionTimestamp
      * @return float
@@ -59,7 +74,7 @@ class TransactionBuilder
      * @return string
      * @throws \Exception
      */
-    public static function generateRandomBitsInHex(int $bits)
+    public static function generateRandomBitsInHex(int $bits): string
     {
         return bin2hex(random_bytes($bits/8));
     }
