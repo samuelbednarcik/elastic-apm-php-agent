@@ -25,7 +25,7 @@ class TransactionBuilder
 
         $transaction = new Transaction();
         $transaction->setName($request->getMethod() . ' ' . $request->getPathInfo());
-        $transaction->setTimestamp($request->server->get('REQUEST_TIME'));
+        $transaction->setTimestamp($request->server->get('REQUEST_TIME_FLOAT') * 1000000);
         $transaction->setType(Transaction::TYPE_REQUEST);
         $transaction->setId(self::generateRandomBitsInHex(self::TRANSACTION_ID_SIZE));
 
@@ -42,6 +42,16 @@ class TransactionBuilder
         }
 
         return $transaction;
+    }
+
+    /**
+     * @param float Current unix timestamp in microseconds
+     * @param float $transactionTimestamp
+     * @return float
+     */
+    public static function calculateDuration(float $now, float $transactionTimestamp): float
+    {
+        return round(($now - $transactionTimestamp) / 1000, 3);
     }
 
     /**
