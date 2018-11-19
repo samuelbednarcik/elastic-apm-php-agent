@@ -108,6 +108,12 @@ class AgentConfiguration
      */
     public function setCollectors(array $collectors): void
     {
+        foreach ($collectors as $collector) {
+            if (!$collector instanceof CollectorInterface) {
+                throw new \InvalidArgumentException('All elements must implement CollectionInterface');
+            }
+        }
+
         $this->collectors = $collectors;
     }
 }
