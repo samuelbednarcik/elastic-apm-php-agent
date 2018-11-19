@@ -34,6 +34,54 @@ class TraceParent
     }
 
     /**
+     * @return string
+     */
+    public function getTraceId(): string
+    {
+        return $this->traceId;
+    }
+
+    /**
+     * @param string $traceId
+     */
+    public function setTraceId(string $traceId): void
+    {
+        $this->traceId = $traceId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpanId(): string
+    {
+        return $this->spanId;
+    }
+
+    /**
+     * @param string $spanId
+     */
+    public function setSpanId(string $spanId): void
+    {
+        $this->spanId = $spanId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTraceFlags(): string
+    {
+        return $this->traceFlags;
+    }
+
+    /**
+     * @param string $traceFlags
+     */
+    public function setTraceFlags(string $traceFlags): void
+    {
+        $this->traceFlags = $traceFlags;
+    }
+
+    /**
      * @param string $header
      * @return bool
      */
