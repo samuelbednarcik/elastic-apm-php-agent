@@ -29,10 +29,10 @@ class Span
     protected $parentId;
 
     /**
-     * Offset relative to the transaction's timestamp identifying the start of the span, in milliseconds
-     * @var int|null
+     * Span's timestamp
+     * @var float|null
      */
-    protected $start;
+    protected $timestamp;
 
     /**
      * Duration of the span in milliseconds
