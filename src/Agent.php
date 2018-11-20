@@ -133,14 +133,7 @@ class Agent
 
         foreach ($this->collectors as $collector) {
             foreach ($collector->getSpans() as $span) {
-                $span->setTransactionId($this->transaction->getId());
-                $span->setTraceId($this->transaction->getTraceId());
-
-                if ($span->getParentId() === null) {
-                    $span->setParentId($this->transaction->getId());
-                }
-
-                $spans[] = $span;
+                $spans[] = $this->prepareSpan($span);
             }
         }
 
@@ -193,5 +186,27 @@ class Agent
         if (empty($this->transaction->getContext()) || empty($this->spans)) {
             $this->transaction->setSampled(false);
         }
+    }
+
+    /**
+     * @param Span $span
+     * @return Span
+     */
+    private function prepareSpan(Span $span): Span
+    {
+        $span->setTransactionId($this->transaction->getId());
+        $span->setTraceId($this->transaction->getTraceId());
+
+        if ($span->getParentId() === null) {
+            $span->setParentId($this->transaction->getId());
+        }
+
+        if ($span->getStart() === null) {
+            $span->setStart(
+                round(($span->getTimestamp() - $this->transaction->getTimestamp()) / 1000)
+            );
+        }
+
+        return $span;
     }
 }
