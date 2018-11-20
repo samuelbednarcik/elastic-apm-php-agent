@@ -10,7 +10,7 @@ use SamuelBednarcik\ElasticAPMAgent\Exception\BadEventRequestException;
 use SamuelBednarcik\ElasticAPMAgent\Serializer\ElasticAPMSerializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
-class EventRequest
+class EventIntakeRequest
 {
     const INTAKE_ENDPOINT = '/intake/v2/events';
     const CONTENT_TYPE = 'application/x-ndjson';
