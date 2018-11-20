@@ -37,6 +37,12 @@ class Error
     protected $context;
 
     /**
+     * Function call which was the primary perpetrator of this event.
+     * @var string|null
+     */
+    protected $culprit;
+
+    /**
      * Information about the originally thrown error.
      * @var array|null
      */
@@ -110,6 +116,22 @@ class Error
     public function setParentId(?string $parentId): void
     {
         $this->parentId = $parentId;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCulprit(): ?string
+    {
+        return $this->culprit;
+    }
+
+    /**
+     * @param null|string $culprit
+     */
+    public function setCulprit(?string $culprit): void
+    {
+        $this->culprit = $culprit;
     }
 
     /**
