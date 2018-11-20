@@ -55,6 +55,12 @@ class Error
     protected $log;
 
     /**
+     * Current timestamp in microseconds.
+     * @var float|null
+     */
+    protected $timestamp;
+
+    /**
      * @return null|string
      */
     public function getId(): ?string
@@ -180,5 +186,21 @@ class Error
     public function setLog(?array $log): void
     {
         $this->log = $log;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getTimestamp(): ?float
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @param float|null $timestamp
+     */
+    public function setTimestamp(?float $timestamp): void
+    {
+        $this->timestamp = $timestamp;
     }
 }
