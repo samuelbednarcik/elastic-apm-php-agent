@@ -4,6 +4,8 @@ namespace SamuelBednarcik\ElasticAPMAgent\Events;
 
 class Error
 {
+    const ERROR_ID_SIZE = 128;
+
     /**
      * Hex encoded 128 random bits ID of the error.
      * @var string|null
@@ -44,7 +46,7 @@ class Error
 
     /**
      * Information about the originally thrown error.
-     * @var array|null
+     * @var ErrorException|null
      */
     protected $exception;
 
@@ -157,17 +159,17 @@ class Error
     }
 
     /**
-     * @return array|null
+     * @return ErrorException|null
      */
-    public function getException(): ?array
+    public function getException(): ?ErrorException
     {
         return $this->exception;
     }
 
     /**
-     * @param array|null $exception
+     * @param ErrorException|null $exception
      */
-    public function setException(?array $exception): void
+    public function setException(?ErrorException $exception): void
     {
         $this->exception = $exception;
     }
