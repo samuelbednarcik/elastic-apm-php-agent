@@ -156,7 +156,7 @@ class EventIntakeRequest
         foreach ($this->transactions as $transaction) {
             $json .= "\n";
             $json .= $this->serializer->encode(
-                ['span' => $this->serializer->normalize($transaction)],
+                ['transaction' => $this->serializer->normalize($transaction)],
                 JsonEncoder::FORMAT
             );
         }
@@ -176,7 +176,7 @@ class EventIntakeRequest
         foreach ($this->errors as $error) {
             $json .= "\n";
             $json .= $this->serializer->encode(
-                ['span' => $this->serializer->normalize($error)],
+                ['error' => $this->serializer->normalize($error)],
                 JsonEncoder::FORMAT
             );
         }
