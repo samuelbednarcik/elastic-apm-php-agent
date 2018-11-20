@@ -31,9 +31,12 @@ class TransactionBuilder extends AbstractEventBuilder
         $transaction->setType(Transaction::TYPE_REQUEST);
         $transaction->setId(self::generateRandomBitsInHex(self::TRANSACTION_ID_SIZE));
 
-        if ($header = $request->headers->get('traceparent') !== null) {
+        /** @var string|null $traceparentHeader */
+        $traceparentHeader = $request->headers->get('traceparent', null, true);
+
+        if ($traceparentHeader !== null) {
             try {
-                $traceParent = TraceParent::createFromHeader($header);
+                $traceParent = TraceParent::createFromHeader($traceparentHeader);
                 $transaction->setTraceId($traceParent->getTraceId());
                 $transaction->setParentId($traceParent->getSpanId());
             } catch (InvalidTraceContextHeaderException $e) {
@@ -61,7 +64,7 @@ class TransactionBuilder extends AbstractEventBuilder
     }
 
     /**
-     * @param float Current unix timestamp in microseconds
+     * @param float $now Current unix timestamp in microseconds
      * @param float $transactionTimestamp
      * @return float
      */

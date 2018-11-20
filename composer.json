@@ -20,5 +20,11 @@
         "psr-4": {
             "SamuelBednarcik\\ElasticAPMAgent\\": "src/"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.10.5"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse src --level 6"
     }
 }

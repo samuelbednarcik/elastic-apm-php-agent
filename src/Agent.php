@@ -212,7 +212,7 @@ class Agent
 
         if ($span->getStart() === null) {
             $span->setStart(
-                round(($span->getTimestamp() - $this->transaction->getTimestamp()) / 1000)
+                intval(round(($span->getTimestamp() - $this->transaction->getTimestamp()) / 1000))
             );
         }
 
