@@ -3,18 +3,19 @@
 namespace SamuelBednarcik\ElasticAPMAgent;
 
 use GuzzleHttp\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
+use SamuelBednarcik\ElasticAPMAgent\Events\Error;
 use SamuelBednarcik\ElasticAPMAgent\Events\Span;
 use SamuelBednarcik\ElasticAPMAgent\Events\Transaction;
 use SamuelBednarcik\ElasticAPMAgent\Exception\AgentStateException;
+use SamuelBednarcik\ElasticAPMAgent\Exception\BadEventRequestException;
 use SamuelBednarcik\ElasticAPMAgent\Serializer\ElasticAPMSerializer;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 class Agent
 {
     const AGENT_NAME = 'samuelbednarcik/elastic-apm-agent';
     const AGENT_VERSION = 'dev';
-    const INTAKE_ENDPOINT = '/intake/v2/events';
 
     /**
      * @var AgentConfiguration
@@ -47,15 +48,31 @@ class Agent
     private $spans = [];
 
     /**
+     * @var Error[]
+     */
+    private $errors = [];
+
+    /**
+     * @var bool
+     */
+    private $started = false;
+
+    /**
      * @param AgentConfiguration $config
      * @param ClientInterface $client
      * @param ElasticAPMSerializer $serializer
+     * @param CollectorInterface[] $collectors
      */
-    public function __construct(AgentConfiguration $config, ClientInterface $client, ElasticAPMSerializer $serializer)
-    {
+    public function __construct(
+        AgentConfiguration $config,
+        ClientInterface $client,
+        ElasticAPMSerializer $serializer,
+        array $collectors
+    ) {
         $this->config = $config;
         $this->client = $client;
         $this->serializer = $serializer;
+        $this->collectors = $collectors;
     }
 
     /**
@@ -67,14 +84,6 @@ class Agent
     }
 
     /**
-     * @param CollectorInterface $collector
-     */
-    public function registerCollector(CollectorInterface $collector)
-    {
-        $this->collectors[] = $collector;
-    }
-
-    /**
      * @param Request|null $request
      * @return Transaction
      * @throws AgentStateException
@@ -82,11 +91,12 @@ class Agent
      */
     public function start(Request $request = null): Transaction
     {
-        if ($this->transaction !== null) {
+        if ($this->started === true) {
             throw new AgentStateException('Agent already started!');
         }
 
         $this->transaction = TransactionBuilder::buildFromRequest($request);
+        $this->started = true;
         return $this->transaction;
     }
 
@@ -97,7 +107,7 @@ class Agent
      */
     public function stop(string $result): Transaction
     {
-        if ($this->transaction === null) {
+        if ($this->started !== true) {
             throw new AgentStateException('You have to call start method before the stop method!');
         }
 
@@ -105,17 +115,20 @@ class Agent
         $this->transaction->setDuration(
             TransactionBuilder::calculateDuration(microtime(true) * 1000000, $this->transaction->getTimestamp())
         );
+
+        $this->spans = $this->collect();
+
         return $this->transaction;
     }
 
+
     /**
-     * @throws AgentStateException
+     * Collect spans from registered collectors
+     * @return Span[]
      */
-    public function collect()
+    private function collect(): array
     {
-        if ($this->transaction === null) {
-            throw new AgentStateException('You can collect spans only after you stop the transaction!');
-        }
+        $spans = [];
 
         foreach ($this->collectors as $collector) {
             foreach ($collector->getSpans() as $span) {
@@ -126,15 +139,51 @@ class Agent
                     $span->setParentId($this->transaction->getId());
                 }
 
-                $this->spans[] = $span;
+                $spans[] = $span;
             }
         }
+
+        return $spans;
     }
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws BadEventRequestException
      */
-    public function sendAll()
+    public function sendAll(): ResponseInterface
+    {
+        $this->prepareTransaction();
+
+        $request = new EventIntakeRequest($this->serializer);
+        $request->setMetadata($this->config->getMetadata());
+        $request->addTransaction($this->transaction);
+        $request->setSpans($this->spans);
+        $request->setErrors($this->errors);
+
+        return $this->send($request);
+    }
+
+    /**
+     * @param EventIntakeRequest $request
+     * @return ResponseInterface
+     * @throws BadEventRequestException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function send(EventIntakeRequest $request): ResponseInterface
+    {
+        return $this->client->request('POST', $this->config->getServerUrl() . EventIntakeRequest::INTAKE_ENDPOINT, [
+            'body' => $request->getRequestBody(),
+            'headers' => [
+                'Content-Type' => EventIntakeRequest::CONTENT_TYPE
+            ]
+        ]);
+    }
+
+    /**
+     * Prepare transaction for sending.
+     * Method will set span count and check if the transaction is sampled.
+     */
+    private function prepareTransaction()
     {
         $this->transaction->setSpanCount([
             'started' => count($this->spans)
@@ -143,42 +192,5 @@ class Agent
         if (empty($this->transaction->getContext()) || empty($this->spans)) {
             $this->transaction->setSampled(false);
         }
-
-        return $this->client->request('POST', $this->config->getServerUrl() . self::INTAKE_ENDPOINT, [
-            'body' => $this->prepareRequestBody(),
-            'headers' => [
-                'Content-Type' => 'application/x-ndjson',
-            ]
-        ]);
-    }
-
-    /**
-     * Create request NDJSON from the data
-     *
-     * @return string
-     */
-    private function prepareRequestBody(): string
-    {
-        $json = $this->serializer->encode(
-            ['metadata' => $this->serializer->normalize($this->config->getMetadata())],
-            JsonEncoder::FORMAT
-        );
-
-        $json .= "\n";
-
-        $json .= $this->serializer->encode(
-            ['transaction' => $this->serializer->normalize($this->transaction)],
-            JsonEncoder::FORMAT
-        );
-
-        foreach ($this->spans as $span) {
-            $json .= "\n";
-            $json .= $this->serializer->encode(
-                ['span' => $this->serializer->normalize($span)],
-                JsonEncoder::FORMAT
-            );
-        }
-
-        return $json;
     }
 }
