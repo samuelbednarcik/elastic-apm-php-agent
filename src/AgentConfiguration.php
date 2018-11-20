@@ -27,11 +27,6 @@ class AgentConfiguration
     private $serverUrl;
 
     /**
-     * @var CollectorInterface[]
-     */
-    private $collectors;
-
-    /**
      * @return null|string
      */
     public function getServiceName(): ?string
@@ -93,27 +88,5 @@ class AgentConfiguration
     public function setServerUrl(?string $serverUrl): void
     {
         $this->serverUrl = $serverUrl;
-    }
-
-    /**
-     * @return CollectorInterface[]
-     */
-    public function getCollectors(): array
-    {
-        return $this->collectors;
-    }
-
-    /**
-     * @param CollectorInterface[] $collectors
-     */
-    public function setCollectors(array $collectors): void
-    {
-        foreach ($collectors as $collector) {
-            if (!$collector instanceof CollectorInterface) {
-                throw new \InvalidArgumentException('All elements must implement CollectionInterface');
-            }
-        }
-
-        $this->collectors = $collectors;
     }
 }
