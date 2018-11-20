@@ -153,11 +153,11 @@ class Span
     }
 
     /**
-     * @param float|null $start
+     * @param float|null $timestamp
      */
-    public function setTimestamp(?float $start): void
+    public function setTimestamp(?float $timestamp): void
     {
-        $this->start = $start;
+        $this->timestamp = $timestamp;
     }
 
     /**
