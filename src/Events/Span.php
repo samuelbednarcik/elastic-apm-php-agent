@@ -137,6 +137,14 @@ class Span
     }
 
     /**
+     * @param null|int $start
+     */
+    public function setStart(?int $start): void
+    {
+        $this->start = $start;
+    }
+
+    /**
      * @return float|null
      */
     public function getTimestamp(): ?float
