@@ -57,7 +57,7 @@ class Error
     protected $log;
 
     /**
-     * Current timestamp in microseconds.
+     * Timestamp in microseconds.
      * @var float|null
      */
     protected $timestamp;
