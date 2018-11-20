@@ -1,6 +1,6 @@
 <?php
 
-namespace SamuelBednarcik\ElasticAPMAgent;
+namespace SamuelBednarcik\ElasticAPMAgent\Builder;
 
 abstract class AbstractEventBuilder
 {

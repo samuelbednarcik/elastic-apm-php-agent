@@ -1,6 +1,8 @@
 <?php
 
-namespace SamuelBednarcik\ElasticAPMAgent;
+namespace SamuelBednarcik\ElasticAPMAgent\Builder;
+
+use SamuelBednarcik\ElasticAPMAgent\Agent;
 
 class MetadataBuilder extends AbstractEventBuilder
 {

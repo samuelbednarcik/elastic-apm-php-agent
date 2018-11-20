@@ -4,6 +4,7 @@ namespace SamuelBednarcik\ElasticAPMAgent;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use SamuelBednarcik\ElasticAPMAgent\Builder\TransactionBuilder;
 use SamuelBednarcik\ElasticAPMAgent\Events\Error;
 use SamuelBednarcik\ElasticAPMAgent\Events\Span;
 use SamuelBednarcik\ElasticAPMAgent\Events\Transaction;

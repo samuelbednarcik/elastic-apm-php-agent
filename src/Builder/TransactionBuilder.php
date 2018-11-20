@@ -1,9 +1,10 @@
 <?php
 
-namespace SamuelBednarcik\ElasticAPMAgent;
+namespace SamuelBednarcik\ElasticAPMAgent\Builder;
 
 use SamuelBednarcik\ElasticAPMAgent\Events\Transaction;
 use SamuelBednarcik\ElasticAPMAgent\Exception\InvalidTraceContextHeaderException;
+use SamuelBednarcik\ElasticAPMAgent\TraceParent;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
