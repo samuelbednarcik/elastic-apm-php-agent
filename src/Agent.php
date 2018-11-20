@@ -122,6 +122,15 @@ class Agent
         return $this->transaction;
     }
 
+    /**
+     * Capture an error in current transaction
+     * @param Error $error
+     */
+    public function captureError(Error $error)
+    {
+        $this->errors[] = $error;
+    }
+
 
     /**
      * Collect spans from registered collectors
@@ -174,8 +183,7 @@ class Agent
     }
 
     /**
-     * Prepare transaction for sending.
-     * Method will set span count and check if the transaction is sampled.
+     * Prepare transaction for sending to APM.
      */
     private function prepareTransaction()
     {
@@ -189,6 +197,7 @@ class Agent
     }
 
     /**
+     * Prepare span for for sending to APM.
      * @param Span $span
      * @return Span
      */
