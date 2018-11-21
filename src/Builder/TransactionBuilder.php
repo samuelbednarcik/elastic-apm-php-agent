@@ -10,10 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TransactionBuilder extends AbstractEventBuilder
 {
-    const TRANSACTION_ID_SIZE = 64;
-    const TRACE_ID_SIZE = 128;
-    const PARENT_ID_SIZE = 64;
-
     /**
      * @param Request|null $request
      * @return Transaction
