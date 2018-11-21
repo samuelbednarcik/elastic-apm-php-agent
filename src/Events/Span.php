@@ -36,13 +36,13 @@ class Span
 
     /**
      * Timestamp of the start of span in microseconds
-     * @var float|null
+     * @var int|null
      */
     protected $timestamp;
 
     /**
      * Duration of the span in milliseconds
-     * @var int|null
+     * @var float|null
      */
     protected $duration;
 
@@ -145,33 +145,33 @@ class Span
     }
 
     /**
-     * @return float|null
+     * @return int|null
      */
-    public function getTimestamp(): ?float
+    public function getTimestamp(): ?int
     {
         return $this->timestamp;
     }
 
     /**
-     * @param float|null $timestamp
+     * @param int|null $timestamp
      */
-    public function setTimestamp(?float $timestamp): void
+    public function setTimestamp(?int $timestamp): void
     {
         $this->timestamp = $timestamp;
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getDuration(): ?int
+    public function getDuration(): ?float
     {
         return $this->duration;
     }
 
     /**
-     * @param int|null $duration
+     * @param float|null $duration
      */
-    public function setDuration(?int $duration): void
+    public function setDuration(?float $duration): void
     {
         $this->duration = $duration;
     }

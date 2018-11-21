@@ -63,7 +63,7 @@ class Transaction
     protected $marks;
 
     /**
-     * @var float|null
+     * @var int|null
      */
     protected $timestamp;
 
@@ -244,17 +244,17 @@ class Transaction
     }
 
     /**
-     * @return float|null
+     * @return int|null
      */
-    public function getTimestamp(): ?float
+    public function getTimestamp(): ?int
     {
         return $this->timestamp;
     }
 
     /**
-     * @param float|null $timestamp
+     * @param int|null $timestamp
      */
-    public function setTimestamp(?float $timestamp): void
+    public function setTimestamp(?int $timestamp): void
     {
         $this->timestamp = $timestamp;
     }
