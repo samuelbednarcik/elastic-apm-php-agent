@@ -17,7 +17,7 @@ class ErrorBuilder extends AbstractEventBuilder
         $trace = $exception->getTrace();
 
         $error = new Error();
-        $error->setId(self::generateRandomBitsInHex(Error::ERROR_ID_SIZE));
+        $error->setId(self::generateRandomBitsInHex(self::ERROR_ID_SIZE));
 
         $errorException = new ErrorException();
         $errorException->setCode($exception->getCode());
@@ -25,7 +25,7 @@ class ErrorBuilder extends AbstractEventBuilder
         $errorException->setType(get_class($exception));
         $error->setException($errorException);
 
-        $error->setTimestamp(microtime(true) * 1000000);
+        $error->setTimestamp(intval(round(microtime(true) * 1000000)));
         $error->setCulprit($trace[0]['class'] . $trace[0]['type'] . $trace[0]['function']);
 
         return $error;

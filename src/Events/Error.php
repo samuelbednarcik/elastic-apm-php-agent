@@ -4,8 +4,6 @@ namespace SamuelBednarcik\ElasticAPMAgent\Events;
 
 class Error
 {
-    const ERROR_ID_SIZE = 128;
-
     /**
      * Hex encoded 128 random bits ID of the error.
      * @var string|null

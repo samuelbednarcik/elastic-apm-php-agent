@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractEventBuilder
 {
+    const TRANSACTION_ID_SIZE = 64;
+    const ERROR_ID_SIZE = 128;
+    const SPAN_ID_SIZE = 64;
+    const TRACE_ID_SIZE = 128;
+
     /**
      * @param int $bits
      * @return string
