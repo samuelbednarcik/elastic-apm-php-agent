@@ -106,6 +106,7 @@ class Agent
      * @param string $result
      * @return Transaction
      * @throws AgentStateException
+     * @throws \Exception
      */
     public function stop(string $result): Transaction
     {
