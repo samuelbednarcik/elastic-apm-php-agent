@@ -40,7 +40,7 @@ retrieved from the **REQUEST_TIME_FLOAT** server variable. If you don't
 provide a request instance, it will be created from the global variables.
 Start method will also return a transaction instance.
 ```php
-    $transaction = $agent->start($request);
+$transaction = $agent->start($request);
 ```
 
 Call stop function at the end of the code. Optionally, if you are using
@@ -48,20 +48,20 @@ symfony request/response, you use transaction builder to generate
 a context for the transaction. This function will also return a transaction.
 By calling the stop method, all spans from collectors will be collected.
 ```php
-    $transaction = $agent->stop();
-    $transaction->setContext(
-        TransactionBuilder::buildContext($request, $response)
-    );
+$transaction = $agent->stop();
+$transaction->setContext(
+    TransactionBuilder::buildContext($request, $response)
+);
 ```
 
 After that, you can call sendAll method which will send all informations
 to APM server.
 ```php
-    try {
-        $agent->sendAll();
-    } catch (GuzzleException $e) {
-        // log an error
-    }
+try {
+    $agent->sendAll();
+} catch (GuzzleException $e) {
+    // log an error
+}
 ```
 
 ## License
