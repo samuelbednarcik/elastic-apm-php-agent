@@ -5,6 +5,7 @@ namespace SamuelBednarcik\ElasticAPMAgent\Serializer;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -20,7 +21,8 @@ class ElasticAPMSerializer extends Serializer
         );
 
         $normalizers = [
-            $objectNormalizer
+            $objectNormalizer,
+            new DateTimeNormalizer()
         ];
 
         $encoders = [
