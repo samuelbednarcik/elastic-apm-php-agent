@@ -69,7 +69,7 @@ class Agent
         AgentConfiguration $config,
         ClientInterface $client,
         ElasticAPMSerializer $serializer,
-        array $collectors
+        array $collectors = []
     ) {
         $this->config = $config;
         $this->client = $client;
