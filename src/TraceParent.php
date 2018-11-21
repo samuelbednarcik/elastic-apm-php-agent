@@ -6,6 +6,8 @@ use SamuelBednarcik\ElasticAPMAgent\Exception\InvalidTraceContextHeaderException
 
 class TraceParent
 {
+    const HEADER_NAME = 'traceparent';
+
     /**
      * @var string
      */
@@ -85,7 +87,7 @@ class TraceParent
      * @param string $header
      * @return bool
      */
-    public static function isValidHeader(string $header)
+    public static function isValidHeader(string $header): bool
     {
         return preg_match('/^00-[\da-f]{32}-[\da-f]{16}-[\da-f]{2}$/', $header) === 1;
     }
@@ -95,7 +97,7 @@ class TraceParent
      * @return TraceParent
      * @throws InvalidTraceContextHeaderException
      */
-    public static function createFromHeader(string $header)
+    public static function createFromHeader(string $header): TraceParent
     {
         if (!self::isValidHeader($header)) {
             throw new InvalidTraceContextHeaderException();
@@ -103,5 +105,19 @@ class TraceParent
 
         $parsed = explode('-', $header);
         return new TraceParent($parsed[1], $parsed[2], $parsed[3]);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return sprintf(
+            '%s-%s-%s-%s',
+            '00',
+            $this->getTraceId(),
+            $this->getSpanId(),
+            $this->getTraceFlags()
+        );
     }
 }

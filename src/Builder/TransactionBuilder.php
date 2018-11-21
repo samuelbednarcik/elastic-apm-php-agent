@@ -28,7 +28,7 @@ class TransactionBuilder extends AbstractEventBuilder
         $transaction->setId(self::generateRandomBitsInHex(self::TRANSACTION_ID_SIZE));
 
         /** @var string|null $traceparentHeader */
-        $traceparentHeader = $request->headers->get('traceparent', null, true);
+        $traceparentHeader = $request->headers->get(TraceParent::HEADER_NAME, null, true);
 
         if ($traceparentHeader !== null) {
             try {
