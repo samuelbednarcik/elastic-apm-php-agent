@@ -4,6 +4,7 @@ namespace SamuelBednarcik\ElasticAPMAgent;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use SamuelBednarcik\ElasticAPMAgent\Builder\AbstractEventBuilder;
 use SamuelBednarcik\ElasticAPMAgent\Builder\TransactionBuilder;
 use SamuelBednarcik\ElasticAPMAgent\Events\Error;
 use SamuelBednarcik\ElasticAPMAgent\Events\Span;
@@ -135,6 +136,7 @@ class Agent
     /**
      * Collect spans from registered collectors
      * @return Span[]
+     * @throws \Exception
      */
     private function collect(): array
     {
@@ -200,11 +202,16 @@ class Agent
      * Prepare span for for sending to APM.
      * @param Span $span
      * @return Span
+     * @throws \Exception
      */
     private function prepareSpan(Span $span): Span
     {
         $span->setTransactionId($this->transaction->getId());
         $span->setTraceId($this->transaction->getTraceId());
+
+        if ($span->getId() === null) {
+            $span->setId(AbstractEventBuilder::generateRandomBitsInHex(64));
+        }
 
         if ($span->getParentId() === null) {
             $span->setParentId($this->transaction->getId());
