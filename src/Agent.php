@@ -86,6 +86,14 @@ class Agent
     }
 
     /**
+     * @return null|Transaction
+     */
+    public function getTransaction(): ?Transaction
+    {
+        return $this->transaction;
+    }
+
+    /**
      * @param Request|null $request
      * @return Transaction
      * @throws AgentStateException
