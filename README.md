@@ -44,9 +44,9 @@ $transaction = $agent->start($request);
 ```
 
 Call stop function at the end of the code. Optionally, if you are using
-symfony request/response, you use transaction builder to generate
-a context for the transaction. This function will also return a transaction.
-By calling the stop method, all spans from collectors will be collected.
+symfony request/response, you can use transaction builder to generate
+a context for the transaction. By calling the stop method, all spans
+from collectors will be collected. This function will also return a transaction.
 ```php
 $transaction = $agent->stop();
 $transaction->setContext(
