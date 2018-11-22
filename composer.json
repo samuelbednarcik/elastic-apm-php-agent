@@ -26,5 +26,9 @@
     },
     "scripts": {
         "phpstan": "phpstan analyse src --level 6"
+    },
+    "suggest": {
+        "samuelbednarcik/doctrine-elastic-apm-collector": "Span Collector for Doctrine",
+        "samuelbednarcik/guzzle-elastic-apm-collector": "Span Collector for Guzzle"
     }
 }
