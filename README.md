@@ -1,5 +1,8 @@
 # Elastic APM PHP agent
 
+![Packagist](https://img.shields.io/packagist/v/samuelbednarcik/elastic-apm-agent.svg)
+![PHP from Packagist](https://img.shields.io/packagist/php-v/samuelbednarcik/elastic-apm-agent.svg)
+
 Unofficial PHP agent for
 [Elastic APM](https://www.elastic.co/solutions/apm) (>=6.5).
 
