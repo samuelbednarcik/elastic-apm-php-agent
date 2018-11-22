@@ -91,28 +91,27 @@ Distributed tracing headers are automatically handled by the agent, the
 only thing you have to do is to send `elastic-traceparent-header` in
 request which you want to track.
 ```php
-    $traceparent = new TraceParent(
-        $transaction->getTraceId(),
-        $transaction->getId(),
-        '01'
-    );
+$traceparent = new TraceParent(
+    $transaction->getTraceId(),
+    $transaction->getId(),
+    '01'
+);
 
-    $request->withHeader(
-        TraceParent::HEADER_NAME,
-        $traceparent->__toString()
-    );
+$request->withHeader(
+    TraceParent::HEADER_NAME,
+    $traceparent->__toString()
+);
 ```
 
 
 If you are using Guzzle client, you can use `TracingGuzzleMiddleware`
 which will inject header for you.
 ```php
-    $middleware = new TracingGuzzleMiddleware($agent)
+$middleware = new TracingGuzzleMiddleware($agent)
 
-    $stack = HandlerStack::create();
-    $stack->push($middleware());
-    $client = new Client(['handler' => $stack])
-
+$stack = HandlerStack::create();
+$stack->push($middleware());
+$client = new Client(['handler' => $stack])
 ```
 
 ## License
