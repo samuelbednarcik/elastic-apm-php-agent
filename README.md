@@ -6,6 +6,10 @@ Unofficial PHP agent for
 This package also ships with the helpers for easy integration with your
 existing project and libraries like Doctrine, Guzzle etc.
 
+**Collectors:**
+* [guzzle](https://github.com/samuelbednarcik/guzzle-elastic-apm-collector)
+* [doctrine](https://github.com/samuelbednarcik/doctrine-elastic-apm-collector)
+
 ## Installation
 ```bash
 composer require samuelbednarcik/elastic-apm-agent
