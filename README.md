@@ -1,6 +1,7 @@
 # Elastic APM PHP agent
 
 ![Packagist](https://img.shields.io/packagist/v/samuelbednarcik/elastic-apm-agent.svg)
+![Scrutinizer](https://img.shields.io/scrutinizer/g/samuelbednarcik/elastic-apm-php-agent.svg)
 ![PHP from Packagist](https://img.shields.io/packagist/php-v/samuelbednarcik/elastic-apm-agent.svg)
 
 Unofficial PHP agent for
