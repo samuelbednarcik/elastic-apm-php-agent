@@ -24,13 +24,13 @@ composer require samuelbednarcik/elastic-apm-agent
 Create an agent configuration object
 ```php
 $config = new AgentConfiguration();
-$config->setServiceName = 'name-of-your-project';
-$config->setServerUrl = 'http://localhost:8200'; // elastic apm server
+$config->setServiceName('name-of-your-project');
+$config->setServerUrl('http://localhost:8200'); // elastic apm server
 
 // create metadata which will be applied to the transaction
 $metadata = new Metadata();
 $metadata->setService(
-    MetadataBuilder::buildService('name-of-your-project')
+    MetadataBuilder::buildService($config->getServiceName())
 );
 $config->setMetadata($metadata);
 ```
