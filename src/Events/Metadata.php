@@ -4,9 +4,7 @@ namespace SamuelBednarcik\ElasticAPMAgent\Events;
 
 class Metadata
 {
-    /**
-     * @var array|null
-     */
+    /** @var array */
     protected $service;
 
     /**
@@ -24,20 +22,14 @@ class Metadata
      */
     protected $user;
 
-    /**
-     * @return array|null
-     */
-    public function getService(): ?array
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param array|null $service
-     */
-    public function setService(?array $service): void
+    public function __construct(array $service)
     {
         $this->service = $service;
+    }
+
+    public function getService(): array
+    {
+        return $this->service;
     }
 
     /**

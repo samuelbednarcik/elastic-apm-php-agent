@@ -6,87 +6,50 @@ use SamuelBednarcik\ElasticAPMAgent\Events\Metadata;
 
 class AgentConfiguration
 {
-    /**
-     * @var string|null
-     */
+    /** @var string */
     private $serviceName;
 
-    /**
-     * @var string|null
-     */
-    private $secretToken;
-
-    /**
-     * @var Metadata|null
-     */
-    private $metadata;
-
-    /**
-     * @var string|null
-     */
+    /** @var string */
     private $serverUrl;
 
-    /**
-     * @return null|string
-     */
-    public function getServiceName(): ?string
+    /** @var Metadata */
+    private $metadata;
+
+    /** @var string|null */
+    private $secretToken;
+
+    public function __construct(
+        string $serviceName,
+        string $serverUrl,
+        Metadata $metadata
+    ) {
+        $this->serviceName = $serviceName;
+        $this->serverUrl = $serverUrl;
+        $this->metadata = $metadata;
+    }
+
+    public function getServiceName(): string
     {
         return $this->serviceName;
     }
 
-    /**
-     * @param null|string $serviceName
-     */
-    public function setServiceName(?string $serviceName): void
+    public function getServerUrl(): string
     {
-        $this->serviceName = $serviceName;
+        return $this->serverUrl;
     }
 
-    /**
-     * @return null|string
-     */
+    public function getMetadata(): Metadata
+    {
+        return $this->metadata;
+    }
+
     public function getSecretToken(): ?string
     {
         return $this->secretToken;
     }
 
-    /**
-     * @param null|string $secretToken
-     */
     public function setSecretToken(?string $secretToken): void
     {
         $this->secretToken = $secretToken;
-    }
-
-    /**
-     * @return null|Metadata
-     */
-    public function getMetadata(): ?Metadata
-    {
-        return $this->metadata;
-    }
-
-    /**
-     * @param null|Metadata $metadata
-     */
-    public function setMetadata(?Metadata $metadata): void
-    {
-        $this->metadata = $metadata;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getServerUrl(): ?string
-    {
-        return $this->serverUrl;
-    }
-
-    /**
-     * @param null|string $serverUrl
-     */
-    public function setServerUrl(?string $serverUrl): void
-    {
-        $this->serverUrl = $serverUrl;
     }
 }
