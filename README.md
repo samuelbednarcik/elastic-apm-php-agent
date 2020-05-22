@@ -5,7 +5,7 @@
 ![PHP from Packagist](https://img.shields.io/packagist/php-v/samuelbednarcik/elastic-apm-agent.svg)
 
 Unofficial PHP agent for
-[Elastic APM](https://www.elastic.co/solutions/apm) (>=6.5).
+[Elastic APM](https://www.elastic.co/solutions/apm) (>=6.5). **It is no longer maintained, use [this](https://github.com/philkra/elastic-apm-php-agent) package instead.**
 
 This package also ships with the helpers for easy integration with your
 existing project and libraries like Doctrine, Guzzle etc.
